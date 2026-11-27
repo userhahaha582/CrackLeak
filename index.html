@@ -1,195 +1,711 @@
-```html
+
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#09090e">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CrackLeaks — Главная</title>
+  <meta name="description" content="CrackLeaks — каталог и инструкции для CS2.">
 
-<title>CrackLeaks — Gaming Store</title>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-<style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+    html {
+      scroll-behavior: smooth;
+    }
 
-html {
-    scroll-behavior: smooth;
-}
+    body {
+      background: #090a0f;
+      color: #f1f1f5;
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
 
-body {
-    background: #09090e;
-    color: #fff;
-    font-family: Inter, sans-serif;
-}
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(12, 13, 20, 0.95);
+      border-bottom: 1px solid #242630;
+      backdrop-filter: blur(12px);
+    }
 
-a {
-    text-decoration: none;
-    color: inherit;
-}
+    nav {
+      max-width: 1150px;
+      margin: auto;
+      padding: 18px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
 
-.container {
-    width: 90%;
-    max-width: 1150px;
-    margin: auto;
-}
+    .logo {
+      color: #a78bfa;
+      font-size: 24px;
+      font-weight: 800;
+      text-decoration: none;
+    }
 
-/* HEADER */
+    .nav-links {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
 
-header {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(9,9,14,.94);
-    backdrop-filter: blur(15px);
-    border-bottom: 1px solid #22212d;
-}
+    .nav-links a {
+      color: #b7b7c5;
+      text-decoration: none;
+      transition: 0.2s;
+    }
 
-.nav {
-    height: 75px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
+    .nav-links a:hover {
+      color: #a78bfa;
+    }
 
-.logo {
-    font-size: 25px;
-    font-weight: 900;
-    letter-spacing: -1px;
-}
+    .container {
+      max-width: 1050px;
+      margin: auto;
+      padding: 30px 22px;
+    }
 
-.logo span {
-    color: #974cff;
-}
+    .hero {
+      text-align: center;
+      padding: 105px 20px 90px;
+      background:
+        radial-gradient(ellipse at top, #30205b 0%, transparent 60%);
+    }
 
-.nav-links {
-    display: flex;
-    gap: 30px;
-}
+    .hero h1 {
+      font-size: clamp(38px, 7vw, 68px);
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
 
-.nav-links a {
-    font-size: 13px;
-    color: #aaa;
-    transition: .2s;
-}
+    .hero h1 span {
+      color: #a78bfa;
+    }
 
-.nav-links a:hover {
-    color: #a56aff;
-}
+    .hero p {
+      color: #aaaaba;
+      max-width: 600px;
+      margin: 0 auto 28px;
+      font-size: 17px;
+    }
 
-.nav-button {
-    padding: 12px 19px;
-    border-radius: 7px;
-    background: #8b45ee;
-    font-size: 12px;
-    font-weight: 700;
-    transition: .3s;
-}
+    .button {
+      display: inline-block;
+      background: #8b5cf6;
+      color: white;
+      border: none;
+      border-radius: 9px;
+      padding: 12px 22px;
+      font-size: 15px;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+      transition: 0.2s;
+    }
 
-.nav-button:hover {
-    background: #a56aff;
-    box-shadow: 0 0 20px #8b45ee66;
-}
+    .button:hover {
+      background: #7544df;
+      transform: translateY(-2px);
+    }
 
-/* HERO */
+    .button.secondary {
+      background: #252633;
+      border: 1px solid #393a4a;
+    }
 
-.hero {
-    min-height: 490px;
-    display: flex;
-    align-items: center;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-}
+    .button.secondary:hover {
+      background: #343547;
+    }
 
-.hero:before {
-    content: "";
-    position: absolute;
-    width: 450px;
-    height: 450px;
-    background: #7629e8;
-    filter: blur(180px);
-    opacity: .17;
-    top: -100px;
-    left: 50%;
-    transform: translateX(-50%);
-}
+    section {
+      scroll-margin-top: 85px;
+    }
 
-.hero-content {
-    position: relative;
-    width: 100%;
-}
+    .section-title {
+      font-size: 30px;
+      margin-bottom: 12px;
+    }
 
-.hero-label {
-    display: inline-block;
-    padding: 9px 17px;
-    border: 1px solid #603b91;
-    background: #251439;
-    border-radius: 30px;
-    color: #c49aff;
-    font-size: 11px;
-    letter-spacing: 2px;
-    margin-bottom: 25px;
-}
+    .section-description {
+      color: #9999aa;
+      margin-bottom: 25px;
+    }
 
-.hero h1 {
-    font-size: clamp(42px, 7vw, 75px);
-    font-weight: 900;
-    letter-spacing: -4px;
-    margin-bottom: 20px;
-}
+    .card {
+      background: #12131c;
+      border: 1px solid #272936;
+      border-radius: 14px;
+      padding: 25px;
+      margin-bottom: 20px;
+    }
 
-.gradient {
-    background: linear-gradient(90deg,#a56aff,#06b6d4);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-}
+    .card h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
 
-.hero p {
-    color: #9999a9;
-    font-size: 15px;
-    line-height: 1.8;
-    max-width: 550px;
-    margin: auto;
-}
+    .card p {
+      color: #aaaaba;
+      margin-bottom: 18px;
+    }
 
-/* CATALOG */
+    .tag {
+      display: inline-block;
+      background: #292044;
+      color: #c4aaff;
+      border-radius: 6px;
+      padding: 4px 9px;
+      font-size: 12px;
+      margin-bottom: 12px;
+    }
 
-.catalog {
-    padding: 65px 0 110px;
-}
+    .steps {
+      padding-left: 22px;
+      color: #c1c1ce;
+    }
 
-.section-title {
-    text-align: center;
-    margin-bottom: 45px;
-}
+    .steps li {
+      margin-bottom: 12px;
+    }
 
-.section-title small {
-    color: #a56aff;
-    letter-spacing: 3px;
-    font-size: 11px;
-    font-weight: 800;
-}
+    .warning {
+      background: #241b13;
+      border: 1px solid #70451e;
+      color: #ffc98b;
+      padding: 15px;
+      border-radius: 9px;
+      margin-top: 20px;
+    }
 
-.section-title h2 {
-    font-size: 37px;
-    margin-top: 12px;
-    letter-spacing: -1.5px;
-}
+    .auth-card {
+      max-width: 470px;
+      margin: 25px auto;
+    }
 
-.product-grid {
-    display: flex;
-    justify-content: center;
-}
+    .auth-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
 
-.product {
-    width: 100%;
-    max-width: 370px;
-    background: #13131c;
-   
+    .auth-tabs button {
+      flex: 1;
+    }
+
+    .field {
+      margin-bottom: 15px;
+    }
+
+    .field label {
+      display: block;
+      margin-bottom: 7px;
+      color: #c6c6d2;
+      font-size: 14px;
+    }
+
+    .field input {
+      width: 100%;
+      padding: 13px;
+      background: #090a0f;
+      border: 1px solid #343544;
+      border-radius: 8px;
+      color: white;
+      outline: none;
+      font-size: 15px;
+    }
+
+    .field input:focus {
+      border-color: #8b5cf6;
+    }
+
+    .auth-card .button {
+      width: 100%;
+      margin-top: 5px;
+    }
+
+    .auth-message {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #bdbdcc;
+      overflow-wrap: anywhere;
+    }
+
+    .user-panel {
+      display: none;
+      text-align: center;
+    }
+
+    .user-panel p {
+      margin-bottom: 15px;
+    }
+
+    footer {
+      border-top: 1px solid #242630;
+      text-align: center;
+      padding: 30px 15px;
+      color: #777787;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 600px) {
+      nav {
+        justify-content: center;
+      }
+
+      .nav-links {
+        justify-content: center;
+        gap: 14px;
+      }
+
+      .hero {
+        padding-top: 75px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <nav>
+    <a class="logo" href="#home">CrackLeaks</a>
+
+    <div class="nav-links">
+      <a href="#home">Главная</a>
+      <a href="#catalog">Каталог</a>
+      <a href="#instruction">Инструкция</a>
+      <a href="#account">Аккаунт</a>
+      <a href="#contacts">Контакты</a>
+    </div>
+  </nav>
+</header>
+
+<main>
+
+  <section class="hero" id="home">
+    <h1>Добро пожаловать в <span>CrackLeaks</span></h1>
+    <p>
+      Каталог, полезные материалы и инструкции для CS2.
+      Всё необходимое в одном месте.
+    </p>
+    <a href="#catalog" class="button">Открыть каталог</a>
+  </section>
+
+  <section class="container" id="catalog">
+    <h2 class="section-title">Каталог</h2>
+    <p class="section-description">
+      Доступные материалы и полезные ссылки.
+    </p>
+
+    <div class="card">
+      <span class="tag">CS2</span>
+      <h3>NeverLose</h3>
+      <p>
+        Материал из каталога CrackLeaks.
+        Перед использованием проверяйте файлы и соблюдайте правила игры.
+      </p>
+      <a
+        class="button"
+        href="https://workupload.com/file/sJpJsgeTdPs"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Скачать
+      </a>
+    </div>
+  </section>
+
+  <section class="container" id="instruction">
+    <h2 class="section-title">Инструкция CS2</h2>
+    <p class="section-description">
+      Как включить поддержку стороннего программного обеспечения.
+    </p>
+
+    <div class="card">
+      <h3>Параметр запуска</h3>
+
+      <ol class="steps">
+        <li>Открой Steam.</li>
+        <li>Перейди в библиотеку игр.</li>
+        <li>Нажми правой кнопкой мыши на Counter-Strike 2.</li>
+        <li>Открой «Свойства».</li>
+        <li>Найди поле «Параметры запуска».</li>
+        <li>Вставь команду ниже.</li>
+      </ol>
+
+      <div class="field">
+        <input
+          id="launchCommand"
+          type="text"
+          value="-allow_third_party_software"
+          readonly
+        >
+      </div>
+
+      <button class="button" onclick="copyCommand()">
+        Скопировать команду
+      </button>
+
+      <div class="warning">
+        Внимание: этот параметр может повлиять на доверенный статус
+        игры и подбор матчей. Используй его, только если понимаешь последствия.
+      </div>
+    </div>
+  </section>
+
+  <section class="container" id="account">
+    <h2 class="section-title" style="text-align:center">
+      Личный кабинет
+    </h2>
+
+    <p class="section-description" style="text-align:center">
+      Зарегистрируйся или войди в свой аккаунт CrackLeaks.
+    </p>
+
+    <div class="card auth-card">
+
+      <div id="authForms">
+        <div class="auth-tabs">
+          <button
+            class="button"
+            id="loginTab"
+            type="button"
+            onclick="setMode('login')"
+          >
+            Войти
+          </button>
+
+          <button
+            class="button secondary"
+            id="registerTab"
+            type="button"
+            onclick="setMode('register')"
+          >
+            Регистрация
+          </button>
+        </div>
+
+        <form id="authForm">
+          <div class="field" id="usernameField" style="display:none">
+            <label for="username">Имя пользователя</label>
+            <input
+              id="username"
+              type="text"
+              placeholder="Придумай имя"
+              minlength="3"
+              maxlength="24"
+              autocomplete="username"
+            >
+          </div>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <input
+              id="email"
+              type="email"
+              placeholder="example@mail.com"
+              autocomplete="email"
+              required
+            >
+          </div>
+
+          <div class="field">
+            <label for="password">Пароль</label>
+            <input
+              id="password"
+              type="password"
+              placeholder="Минимум 8 символов"
+              minlength="8"
+              autocomplete="current-password"
+              required
+            >
+          </div>
+
+          <button class="button" id="submitButton" type="submit">
+            Войти
+          </button>
+        </form>
+
+        <div class="auth-message" id="authMessage" role="status"></div>
+      </div>
+
+      <div class="user-panel" id="userPanel">
+        <h3>Ты вошёл в аккаунт!</h3>
+        <p>Привет, <strong id="userName"></strong> 👋</p>
+        <p id="userEmail" style="color:#9999aa"></p>
+        <button class="button secondary" onclick="logout()">
+          Выйти из аккаунта
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="container" id="contacts">
+    <h2 class="section-title">Контакты</h2>
+
+    <div class="card">
+      <h3>CrackLeaks</h3>
+      <p>
+        По вопросам работы сайта и сотрудничества
+        можно связаться с администрацией.
+      </p>
+      <p>Контактный Telegram: добавь сюда свою ссылку.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © 2026 CrackLeaks. Все права защищены.
+</footer>
+
+<script>
+  // ДАННЫЕ ТВОЕГО SUPABASE ПРОЕКТА
+
+  const SUPABASE_URL = "https://tjjnxhcxxrdzsynmyrju.supabase.co";
+
+  const SUPABASE_ANON_KEY =
+    "sb_publishable_lrDnO3hIt1uqzDPWaklr0Q_xSLSGw4V";
+
+
+  // ПОДКЛЮЧЕНИЕ SUPABASE
+
+  const supabaseClient = window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_ANON_KEY,
+    {
+      auth: {
+        persistSession: true,
+        autoRefreshToken: true,
+        detectSessionInUrl: true
+      }
+    }
+  );
+
+
+  // ПЕРЕКЛЮЧЕНИЕ ВХОДА И РЕГИСТРАЦИИ
+
+  let currentMode = "login";
+
+  function setMode(mode) {
+    currentMode = mode;
+
+    const isRegister = mode === "register";
+
+    document.getElementById("usernameField").style.display =
+      isRegister ? "block" : "none";
+
+    document.getElementById("submitButton").textContent =
+      isRegister ? "Зарегистрироваться" : "Войти";
+
+    document.getElementById("loginTab").className =
+      isRegister ? "button secondary" : "button";
+
+    document.getElementById("registerTab").className =
+      isRegister ? "button" : "button secondary";
+
+    document.getElementById("password").autocomplete =
+      isRegister ? "new-password" : "current-password";
+
+    document.getElementById("authMessage").textContent = "";
+  }
+
+
+  // СООБЩЕНИЯ
+
+  function showMessage(message, isError = false) {
+    const element = document.getElementById("authMessage");
+
+    element.textContent = message;
+    element.style.color = isError ? "#ff7777" : "#a78bfa";
+  }
+
+
+  // РЕГИСТРАЦИЯ И ВХОД
+
+  document.getElementById("authForm").addEventListener(
+    "submit",
+    async function(event) {
+      event.preventDefault();
+
+      const button = document.getElementById("submitButton");
+
+      const email = document
+        .getElementById("email")
+        .value
+        .trim();
+
+      const password = document
+        .getElementById("password")
+        .value;
+
+      const username = document
+        .getElementById("username")
+        .value
+        .trim();
+
+      if (password.length < 8) {
+        showMessage("Пароль должен содержать минимум 8 символов.", true);
+        return;
+      }
+
+      if (currentMode === "register" && username.length < 3) {
+        showMessage("Имя пользователя должно содержать минимум 3 символа.", true);
+        return;
+      }
+
+      button.disabled = true;
+      button.textContent = "Подождите...";
+
+      try {
+        if (currentMode === "register") {
+
+          const { data, error } =
+            await supabaseClient.auth.signUp({
+              email: email,
+              password: password,
+              options: {
+                data: {
+                  username: username
+                },
+                emailRedirectTo:
+                  window.location.origin + window.location.pathname
+              }
+            });
+
+          if (error) throw error;
+
+          if (data.session) {
+            showMessage("Регистрация успешна!");
+          } else {
+            showMessage(
+              "Аккаунт создан! Проверь почту и подтверди email."
+            );
+          }
+
+        } else {
+
+          const { error } =
+            await supabaseClient.auth.signInWithPassword({
+              email: email,
+              password: password
+            });
+
+          if (error) throw error;
+
+          showMessage("Вход выполнен!");
+
+        }
+
+      } catch (error) {
+        showMessage(error.message || "Произошла ошибка.", true);
+      } finally {
+        button.disabled = false;
+        button.textContent =
+          currentMode === "register"
+            ? "Зарегистрироваться"
+            : "Войти";
+      }
+    }
+  );
+
+
+  // ОТОБРАЖЕНИЕ ПОЛЬЗОВАТЕЛЯ
+
+  function updateUserInterface(user) {
+    const authForms = document.getElementById("authForms");
+    const userPanel = document.getElementById("userPanel");
+
+    if (user) {
+      authForms.style.display = "none";
+      userPanel.style.display = "block";
+
+      const username =
+        user.user_metadata?.username || user.email;
+
+      document.getElementById("userName").textContent = username;
+      document.getElementById("userEmail").textContent = user.email || "";
+
+    } else {
+      authForms.style.display = "block";
+      userPanel.style.display = "none";
+    }
+  }
+
+
+  // ПРОВЕРКА СОХРАНЁННОЙ СЕССИИ
+
+  async function checkSession() {
+    const { data, error } =
+      await supabaseClient.auth.getSession();
+
+    if (error) {
+      console.error(error);
+      return;
+    }
+
+    updateUserInterface(data.session?.user || null);
+  }
+
+
+  // СЛЕЖЕНИЕ ЗА ИЗМЕНЕНИЕМ АВТОРИЗАЦИИ
+
+  supabaseClient.auth.onAuthStateChange(
+    function(event, session) {
+      updateUserInterface(session?.user || null);
+    }
+  );
+
+
+  // ВЫХОД
+
+  async function logout() {
+    const { error } = await supabaseClient.auth.signOut();
+
+    if (error) {
+      alert("Ошибка выхода: " + error.message);
+      return;
+    }
+
+    showMessage("Ты вышел из аккаунта.");
+    setMode("login");
+  }
+
+
+  // КОПИРОВАНИЕ КОМАНДЫ
+
+  async function copyCommand() {
+    const command =
+      document.getElementById("launchCommand").value;
+
+    try {
+      await navigator.clipboard.writeText(command);
+      alert("Команда скопирована!");
+    } catch (error) {
+      const input = document.getElementById("launchCommand");
+      input.select();
+      document.execCommand("copy");
+      alert("Команда скопирована!");
+    }
+  }
+
+
+  // ЗАПУСК
+
+  checkSession();
+</script>
+
+</body>
+</html>
