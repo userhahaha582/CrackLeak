@@ -77,7 +77,17 @@ footer{border-top:1px solid #202c2d;text-align:center;padding:30px 15px;color:#7
 <div id="authForms"><div class="auth-tabs"><button class="button" id="loginTab" onclick="setMode('login')">Войти</button><button class="button secondary" id="registerTab" onclick="setMode('register')">Регистрация</button></div>
 <form id="authForm"><div class="field" id="usernameField" style="display:none"><label for="username">Имя пользователя</label><input id="username" type="text" placeholder="Придумай имя" minlength="3" maxlength="24"></div><div class="field"><label for="email">Email</label><input id="email" type="email" placeholder="example@mail.com" required></div><div class="field"><label for="password">Пароль</label><input id="password" type="password" placeholder="Минимум 8 символов" minlength="8" required></div><button class="button" id="submitButton" type="submit">Войти</button></form><div class="auth-message" id="authMessage" role="status"></div></div>
 <div class="user-panel" id="userPanel"><div class="user-avatar">👤</div><h3 id="userName">Пользователь</h3><div id="roleBadge"></div><p id="userEmail"></p>
-<div id="ownerPanel" style="display:none;margin-top:25px;text-align:left"><div class="card"><h3>⚙️ Управление администраторами</h3><p>Назначение и снятие прав Admin по email зарегистрированного пользователя.</p><div class="field"><label for="adminEmail">Email пользователя</label><input id="adminEmail" type="email" placeholder="user@example.com"></div><button class="button" onclick="manageAdmin(true)">Назначить Admin</button><button class="button secondary" onclick="manageAdmin(false)">Снять Admin</button><div id="adminMessage" class="auth-message" role="status"></div></div></div>
+<div id="ownerPanel" style="display:none;margin-top:25px;text-align:left"><div class="card"><h3>⚙️ Управление администраторами</h3><p>Назначение и снятие прав Admin по email зарегистрированного пользователя.</p><div class="field"><label for="adminEmail">Email пользователя</label><input id="adminEmail" type="email" placeholder="user@example.com"></div><button class="button" onclick="manageAdmin(true)">Назначить Admin</button><button class="button secondary" onclick="manageAdmin(false)">Снять Admin</button><div id="adminMessage" class="auth-message" role="status"></div></div>
+<div class="card">
+<h3>🔨 Управление банами</h3>
+<p>Бан блокирует вход пользователя в CrackLeaks. Доступно только владельцу CrackLeak.</p>
+<div class="field"><label for="banEmail">Email пользователя</label><input id="banEmail" type="email" placeholder="user@example.com"></div>
+<div class="field"><label for="banDuration">Срок бана</label><select id="banDuration"><option value="1d">1 день</option><option value="7d" selected>7 дней</option><option value="30d">30 дней</option><option value="permanent">Навсегда</option></select></div>
+<div class="field"><label for="banReason">Причина бана</label><textarea id="banReason" maxlength="500" placeholder="Укажи причину (необязательно)"></textarea></div>
+<button class="button" type="button" onclick="manageUserBan('ban')">Забанить</button>
+<button class="button secondary" type="button" onclick="manageUserBan('unban')">Снять бан</button>
+<div id="banMessage" class="auth-message" role="status"></div>
+</div></div></div>
 <button class="button secondary" onclick="logout()">Выйти из аккаунта</button></div></div></div></section>
 <section class="page" id="page-contacts"><div class="container"><h2 class="section-title">Контакты</h2><div class="card"><h3>CrackLeaks</h3><p>По вопросам работы сайта и сотрудничества можно связаться с администрацией.</p><p>Telegram: добавь сюда свою ссылку.</p></div></div></section>
 </main>
@@ -103,6 +113,38 @@ function updateShopVisibility(){supabaseClient.auth.getSession().then(({data})=>
 function sendRoleRequest(){const role=document.getElementById("requestedRole").value,reason=document.getElementById("roleReason").value.trim(),message=document.getElementById("roleRequestMessage"),btn=document.getElementById("sendRoleRequestButton");if(reason.length<10){message.style.color="#ff7777";message.textContent="Напиши причину заявки (минимум 10 символов).";return}supabaseClient.auth.getSession().then(({data,error})=>{const user=data?.session?.user;if(error||!user){message.style.color="#ff7777";message.textContent="Сначала войди в аккаунт.";return}const username=user.user_metadata?.username||"не указан",subject=encodeURIComponent("Заявка на роль "+role+" — CrackLeaks"),body=encodeURIComponent("Заявка на роль CrackLeaks\n\nРоль: "+role+"\nИмя пользователя: "+username+"\nEmail: "+(user.email||"не указан")+"\nUser ID: "+user.id+"\n\nПричина:\n"+reason+"\n");const mailto="mailto:tuporili67@gmail.com?subject="+subject+"&body="+body;message.style.color="#a8f06a";message.textContent="Откроется почтовое приложение с заполненной заявкой. Нажми «Отправить», чтобы передать её администрации.";window.location.href=mailto;btn.blur()})}
 
 async function manageAdmin(makeAdmin){const email=document.getElementById("adminEmail").value.trim(),message=document.getElementById("adminMessage");if(!email){message.textContent="Введи email пользователя.";return}message.textContent="Выполняется...";const {data:sd,error:se}=await supabaseClient.auth.getSession();if(se){message.textContent=se.message;return}if(sd.session?.user?.app_metadata?.role!=="owner"){message.textContent="Недостаточно прав.";return}const {data,error}=await supabaseClient.rpc("set_admin_role",{target_email:email,make_admin:makeAdmin});message.textContent=error?"Ошибка: "+error.message:data+". Пользователю нужно войти заново, чтобы обновить роль."}
+
+
+// Управление банами: серверная функция отдельно проверяет роль owner.
+async function manageUserBan(action) {
+  const email = document.getElementById("banEmail").value.trim();
+  const duration = document.getElementById("banDuration").value;
+  const reason = document.getElementById("banReason").value.trim();
+  const message = document.getElementById("banMessage");
+  if (!email) { message.style.color="#ff7777"; message.textContent="Введи email пользователя."; return; }
+
+  const { data: sessionData, error: sessionError } = await supabaseClient.auth.getSession();
+  const session = sessionData?.session;
+  if (sessionError || !session) { message.style.color="#ff7777"; message.textContent="Сначала войди в аккаунт владельца."; return; }
+  if (session.user?.app_metadata?.role !== "owner") { message.style.color="#ff7777"; message.textContent="Недостаточно прав. Доступно только CrackLeak."; return; }
+
+  message.style.color="#bdc9c4"; message.textContent="Выполняется...";
+  const buttons=document.querySelectorAll("#ownerPanel button");
+  buttons.forEach(button=>button.disabled=true);
+  try {
+    const { data, error } = await supabaseClient.functions.invoke("manage-user-ban", {
+      body: { action, email, duration, reason }
+    });
+    if (error) throw error;
+    if (!data?.success) throw new Error(data?.error || "Сервер не подтвердил операцию.");
+    message.style.color="#a8f06a";
+    message.textContent=action==="ban" ? "Пользователь забанен. "+(data.message||"") : "Бан снят. "+(data.message||"");
+  } catch(error) {
+    console.error("Ошибка управления баном:",error);
+    message.style.color="#ff7777";
+    message.textContent="Не удалось выполнить действие: "+(error.message||"ошибка функции");
+  } finally { buttons.forEach(button=>button.disabled=false); }
+}
 
 async function loadRatings(){const avg=document.getElementById("ratingAverage"),count=document.getElementById("ratingCount"),mine=document.getElementById("myRating");const {data,error}=await supabaseClient.from("work_ratings").select("rating,user_id").eq("work_name","NeverLose");if(error){avg.textContent="Ошибка загрузки";count.textContent="Проверь таблицу work_ratings в Supabase.";console.error(error);return}const rows=data||[];if(!rows.length){avg.textContent="⭐ 0.0 / 5";count.textContent="Пока нет оценок."}else{avg.textContent="⭐ "+(rows.reduce((s,x)=>s+x.rating,0)/rows.length).toFixed(1)+" / 5";count.textContent=rows.length+" оценок"}const {data:sd}=await supabaseClient.auth.getSession(),user=sd.session?.user;if(!user){mine.textContent="Войди в аккаунт, чтобы поставить оценку.";return}const own=rows.find(x=>x.user_id===user.id);mine.textContent=own?"Твоя оценка: "+"⭐".repeat(own.rating):"Ты ещё не оценивал эту работу."}
 async function rateWork(value){const {data,error:se}=await supabaseClient.auth.getSession();if(se){alert(se.message);return}const user=data.session?.user;if(!user){alert("Сначала войди в аккаунт!");navigate("account");return}const {error}=await supabaseClient.from("work_ratings").upsert({work_name:"NeverLose",user_id:user.id,rating:value},{onConflict:"work_name,user_id"});if(error){alert("Ошибка сохранения оценки: "+error.message);return}await loadRatings();alert("Оценка сохранена!")}
