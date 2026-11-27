@@ -10,75 +10,78 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+:root{--bg:#080b0d;--panel:#101619;--panel2:#141c1e;--line:#263336;--muted:#91a2a0;--text:#edf4f1;--accent:#a8f06a;--accent2:#d1ff9e;--glow:rgba(168,240,106,.15)}
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#090a0f;color:#f1f1f5;font-family:Arial,sans-serif;min-height:100vh;line-height:1.6}
-header{position:sticky;top:0;z-index:100;background:rgba(12,13,20,.97);border-bottom:1px solid #292a36;backdrop-filter:blur(12px)}
-nav{max-width:1150px;margin:auto;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
-.logo{color:#a78bfa;font-size:25px;font-weight:900;text-decoration:none}
-.nav-links{display:flex;gap:7px;flex-wrap:wrap}
-.nav-links button{border:1px solid transparent;background:transparent;color:#aaaaba;padding:9px 11px;border-radius:8px;cursor:pointer;font-size:14px}
-.nav-links button:hover,.nav-links button.active{background:#292044;border-color:#6345a0;color:#c4aaff}
-.container{max-width:1050px;margin:auto;padding:35px 22px}
-.page{display:none;min-height:65vh;animation:appear .22s ease}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:Inter,Arial,sans-serif;min-height:100vh;line-height:1.6;background-image:radial-gradient(ellipse at 50% -20%,rgba(91,143,83,.18),transparent 55%)}
+header{position:sticky;top:0;z-index:100;background:rgba(7,11,12,.88);border-bottom:1px solid rgba(168,240,106,.12);backdrop-filter:blur(18px)}
+nav{max-width:1200px;margin:auto;padding:14px 22px;display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap}
+.logo{color:var(--accent);font-size:23px;font-weight:950;letter-spacing:-1px;text-decoration:none;text-transform:uppercase}
+.logo:before{content:"";display:inline-block;width:8px;height:8px;background:var(--accent);border-radius:2px;margin:0 10px 3px 0;box-shadow:0 0 15px var(--accent)}
+.nav-links{display:flex;gap:5px;flex-wrap:wrap}
+.nav-links button{border:1px solid transparent;background:transparent;color:#9baaa7;padding:9px 12px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:700;transition:.2s}
+.nav-links button:hover,.nav-links button.active{background:rgba(168,240,106,.09);border-color:rgba(168,240,106,.28);color:var(--accent)}
+.container{max-width:1120px;margin:auto;padding:38px 22px}
+.page{display:none;min-height:65vh;animation:appear .25s ease}
 .page.active{display:block}
-@keyframes appear{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
-.hero{text-align:center;padding:105px 20px 90px;background:radial-gradient(ellipse at top,#35205f,transparent 65%)}
-.hero h1{font-size:clamp(36px,7vw,68px);margin-bottom:18px}
-.hero h1 span{color:#a78bfa}
-.hero p{color:#aaaaba;max-width:620px;margin:0 auto 28px}
-.section-title{font-size:30px;margin-bottom:10px}
-.description{color:#9999aa;margin-bottom:25px}
-.card{background:#12131c;border:1px solid #292a38;border-radius:14px;padding:24px;margin-bottom:20px}
-.card h3{font-size:22px;margin-bottom:10px}
-.card p{color:#aaaaba;margin-bottom:15px}
-.button{display:inline-block;background:#8b5cf6;color:white;border:0;border-radius:9px;padding:12px 19px;font-weight:bold;text-decoration:none;cursor:pointer;transition:.2s;margin:3px 3px 3px 0}
-.button:hover{background:#7544df;transform:translateY(-1px)}
+@keyframes appear{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.hero{position:relative;overflow:hidden;max-width:1200px;margin:26px auto 38px;padding:100px 7%;min-height:460px;display:flex;flex-direction:column;justify-content:center;border:1px solid rgba(168,240,106,.2);border-radius:18px;background:linear-gradient(105deg,rgba(8,13,14,.98) 0%,rgba(10,18,17,.92) 55%,rgba(24,42,29,.72) 100%),radial-gradient(circle at 80% 35%,rgba(168,240,106,.2),transparent 32%);box-shadow:0 25px 80px rgba(0,0,0,.3)}
+.hero:after{content:"CL";position:absolute;right:6%;top:50%;transform:translateY(-50%);font-size:clamp(150px,28vw,340px);font-weight:1000;letter-spacing:-25px;color:rgba(168,240,106,.055);pointer-events:none}
+.hero h1{position:relative;z-index:1;font-size:clamp(38px,6vw,72px);line-height:1.02;letter-spacing:-3px;max-width:760px;margin-bottom:22px;text-transform:uppercase}
+.hero h1 span{color:var(--accent)}
+.hero p{position:relative;z-index:1;color:#a9b8b3;max-width:590px;margin:0 0 28px;font-size:17px}
+.hero .button{position:relative;z-index:1;align-self:flex-start}
+.section-title{font-size:30px;letter-spacing:-.8px;margin-bottom:9px}
+.description{color:var(--muted);margin-bottom:25px}
+.card{background:linear-gradient(145deg,rgba(19,28,29,.98),rgba(13,19,21,.98));border:1px solid var(--line);border-radius:13px;padding:24px;margin-bottom:20px;box-shadow:0 12px 35px rgba(0,0,0,.12)}
+.card:hover{border-color:rgba(168,240,106,.28)}
+.card h3{font-size:21px;margin-bottom:10px;letter-spacing:-.3px}
+.card p{color:#a5b3af;margin-bottom:15px}
+.button{display:inline-block;background:var(--accent);color:#10170e;border:1px solid var(--accent);border-radius:7px;padding:11px 18px;font-weight:900;text-decoration:none;cursor:pointer;transition:.2s;margin:3px 3px 3px 0}
+.button:hover{background:var(--accent2);border-color:var(--accent2);transform:translateY(-2px);box-shadow:0 7px 24px var(--glow)}
 .button:disabled{opacity:.6;cursor:wait;transform:none}
-.button.secondary{background:#252633;border:1px solid #393a4a}
-.button.secondary:hover{background:#343547}
-.tag{display:inline-block;background:#292044;color:#c4aaff;border-radius:6px;padding:4px 9px;font-size:12px;margin-bottom:12px}
-.steps{padding-left:22px;color:#c1c1ce}
+.button.secondary{background:#182224;border:1px solid #344345;color:#d8e4df}
+.button.secondary:hover{background:#202d2e;border-color:var(--accent);color:var(--accent);box-shadow:none}
+.tag{display:inline-block;background:rgba(168,240,106,.1);border:1px solid rgba(168,240,106,.22);color:var(--accent);border-radius:5px;padding:4px 9px;font-size:11px;font-weight:900;letter-spacing:1px;margin-bottom:12px;text-transform:uppercase}
+.steps{padding-left:22px;color:#c1cec9}
 .steps li{margin-bottom:12px}
-.warning{background:#241b13;border:1px solid #70451e;color:#ffc98b;padding:15px;border-radius:9px;margin-top:20px}
+.warning{background:#211d12;border:1px solid #62502a;color:#f2d18c;padding:15px;border-radius:9px;margin-top:20px}
 .field{margin-bottom:15px}
-.field label{display:block;color:#c6c6d2;margin-bottom:7px;font-size:14px}
-.field input{width:100%;padding:13px;background:#090a0f;border:1px solid #343544;border-radius:8px;color:white;outline:none;font-size:15px}
-.field input:focus{border-color:#8b5cf6}
+.field label{display:block;color:#c6d1cc;margin-bottom:7px;font-size:14px}
+.field input{width:100%;padding:13px;background:#080d0e;border:1px solid #344345;border-radius:7px;color:white;outline:none;font-size:15px}
+.field input:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(168,240,106,.08)}
 .auth-card{max-width:480px;margin:25px auto}
 .auth-tabs{display:flex;gap:10px;margin-bottom:22px}
 .auth-tabs button{flex:1}
-.auth-message{margin-top:14px;font-size:14px;color:#bdbdcc;overflow-wrap:anywhere}
+.auth-message{margin-top:14px;font-size:14px;color:#bdc9c4;overflow-wrap:anywhere}
 .user-panel{display:none;text-align:center}
-.user-avatar{width:65px;height:65px;border-radius:50%;background:#292044;color:#c4aaff;display:grid;place-items:center;margin:0 auto 15px;font-size:28px}
-.role-badge{display:inline-block;padding:5px 12px;border-radius:7px;font-weight:bold;font-size:12px;margin:10px 0}
-.role-owner{background:#7546d8;color:white}
-.role-admin{background:#2365b5;color:white}
-.role-user{background:#30313e;color:#ccc}
-.rating-average{font-size:25px;color:#f5c451;font-weight:bold;margin-bottom:10px}
+.user-avatar{width:65px;height:65px;border-radius:50%;background:#1b2a25;color:var(--accent);display:grid;place-items:center;margin:0 auto 15px;font-size:28px;border:1px solid rgba(168,240,106,.25)}
+.role-badge{display:inline-block;padding:5px 12px;border-radius:5px;font-weight:900;font-size:11px;letter-spacing:.6px;margin:10px 0}
+.role-owner{background:#6d5420;color:#ffe49a}
+.role-admin{background:#1c4b3b;color:#b9ffd9}
+.role-user{background:#283436;color:#d1ddda}
+.rating-average{font-size:25px;color:var(--accent);font-weight:bold;margin-bottom:10px}
 .rating-buttons{display:flex;flex-wrap:wrap;gap:8px}
-.effect-option{display:flex;align-items:center;gap:12px;background:#0c0d14;border:1px solid #292a38;padding:15px;border-radius:10px;margin:12px 0;cursor:pointer}
-.effect-option:hover{border-color:#8b5cf6}
-.effect-option input{accent-color:#8b5cf6;width:18px;height:18px}
+.effect-option{display:flex;align-items:center;gap:12px;background:#0b1112;border:1px solid var(--line);padding:15px;border-radius:9px;margin:12px 0;cursor:pointer}
+.effect-option:hover{border-color:var(--accent)}
+.effect-option input{accent-color:var(--accent);width:18px;height:18px}
 .effect-icon{font-size:25px}
 #particles{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:90}
 .particle{position:absolute;top:-35px;animation:falling linear forwards;user-select:none;will-change:transform}
 @keyframes falling{to{transform:translate3d(var(--drift),110vh,0) rotate(720deg);opacity:.1}}
 .leaderboard-table{width:100%;border-collapse:collapse;margin:10px 0 20px}
-.leaderboard-table th,.leaderboard-table td{text-align:left;padding:12px 8px;border-bottom:1px solid #292a38}
-.leaderboard-table th{color:#bba4ff}
+.leaderboard-table th,.leaderboard-table td{text-align:left;padding:13px 10px;border-bottom:1px solid var(--line)}
+.leaderboard-table th{color:var(--accent);font-size:12px;text-transform:uppercase;letter-spacing:.7px}
+.leaderboard-table tr:hover td{background:rgba(168,240,106,.035)}
 .leaderboard-table tr:first-child td:first-child{color:#f5c451}
-.profile-link{background:none;border:0;color:#c4aaff;text-decoration:underline;cursor:pointer;font:inherit;font-weight:bold;padding:0}.profile-link:hover{color:#fff}
-.profile-stat{display:flex;justify-content:space-between;gap:15px;padding:10px 0;border-bottom:1px solid #292a38}.profile-stat span:first-child{color:#9999aa}
-footer{border-top:1px solid #242630;text-align:center;padding:30px 15px;color:#777787;margin-top:40px}
-@media(max-width:650px){
- nav{justify-content:center}
- .nav-links{justify-content:center}
- .nav-links button{padding:8px 9px;font-size:12px}
- .container{padding:25px 15px}
- .hero{padding-top:70px}
- .card{padding:18px}
- .leaderboard-table th,.leaderboard-table td{padding:9px 4px;font-size:13px}
-}
+.profile-link{background:none;border:0;color:var(--accent);text-decoration:none;cursor:pointer;font:inherit;font-weight:800;padding:0}.profile-link:hover{color:var(--accent2);text-decoration:underline}
+.profile-stat{display:flex;justify-content:space-between;gap:15px;padding:10px 0;border-bottom:1px solid var(--line)}.profile-stat span:first-child{color:var(--muted)}
+.home-grid{max-width:1120px;margin:0 auto 42px;padding:0 22px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.home-tile{padding:23px;border:1px solid var(--line);border-radius:12px;background:linear-gradient(145deg,#131c1d,#0d1415)}
+.home-tile .tile-icon{font-size:25px;margin-bottom:12px}.home-tile h3{font-size:17px;margin-bottom:7px}.home-tile p{font-size:14px;color:var(--muted);margin:0}
+.home-heading{max-width:1120px;margin:0 auto 18px;padding:0 22px;color:var(--accent);font-size:12px;letter-spacing:2px;font-weight:900;text-transform:uppercase}
+footer{border-top:1px solid #202c2d;text-align:center;padding:30px 15px;color:#75837f;margin-top:40px}
+@media(max-width:760px){nav{justify-content:center}.nav-links{justify-content:center}.nav-links button{padding:8px 9px;font-size:12px}.container{padding:25px 15px}.hero{margin:15px;padding:65px 25px;min-height:390px}.hero h1{letter-spacing:-1.8px}.hero:after{right:2%;top:75%;font-size:150px}.card{padding:18px}.leaderboard-table th,.leaderboard-table td{padding:9px 4px;font-size:12px}.home-grid{grid-template-columns:1fr;padding:0 15px}.home-heading{padding:0 15px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
@@ -107,14 +110,24 @@ footer{border-top:1px solid #242630;text-align:center;padding:30px 15px;color:#7
 <!-- ГЛАВНАЯ -->
 <section class="page" id="page-home">
   <div class="hero">
-    <h1>Добро пожаловать в <span>CrackLeaks</span></h1>
-    <p>Каталог, полезные материалы и инструкции для CS2. Всё необходимое в одном месте.</p>
-    <button class="button" onclick="navigate('catalog')">Открыть каталог</button>
+    <span class="tag">COMMUNITY • CS2 • CRACKLEAKS</span>
+    <h1>ТВОЯ ИГРА.<br><span>ТВОИ ПРАВИЛА.</span></h1>
+    <p>Материалы для CS2, оценки сообщества и каталог CrackLeaks — всё в одном месте. Изучай, сравнивай и находи полезное.</p>
+    <button class="button" onclick="navigate('catalog')">Открыть каталог&nbsp; ↗</button>
+  </div>
+  <div class="home-heading">Исследуй возможности</div>
+  <div class="home-grid">
+    <div class="home-tile"><div class="tile-icon">◈</div><h3>Каталог материалов</h3><p>Собранные материалы и полезные ссылки для сообщества CS2.</p></div>
+    <div class="home-tile"><div class="tile-icon">✳</div><h3>Оценки сообщества</h3><p>Смотри средние оценки и делись собственным мнением.</p></div>
+    <div class="home-tile"><div class="tile-icon">⌁</div><h3>Рейтинг игроков</h3><p>Открывай профили участников и изучай публичную статистику.</p></div>
   </div>
   <div class="container">
     <div class="card">
-      <h3>Добро пожаловать!</h3>
-      <p>Выбирай нужный раздел через меню сверху. Здесь собраны материалы и настройки CrackLeaks.</p>
+      <span class="tag">CRACKLEAKS HUB</span>
+      <h3>Добро пожаловать в сообщество</h3>
+      <p>Выбирай раздел в меню, изучай материалы и участвуй в рейтинге. Для выставления оценок войди в аккаунт.</p>
+      <button class="button secondary" onclick="navigate('leaderboard')">Смотреть лидеров</button>
+      <button class="button secondary" onclick="navigate('ratings')">Перейти к оценкам</button>
     </div>
   </div>
 </section>
@@ -809,845 +822,6 @@ async function loadLeaderboard() {
         td.textContent = value;
         row.appendChild(td);
       });
-
-    tbody.appendChild(row);
-  });
-
-  table.appendChild(tbody);
-  container.innerHTML = "";
-  container.appendChild(table);
-}
-
-
-// ========================================
-// САКУРА И СНЕГ
-// ========================================
-
-let particleTimer = null;
-
-function setEffect(effect) {
-  const allowed = ["none", "sakura", "snow"];
-  if (!allowed.includes(effect)) effect = "none";
-
-  try {
-    localStorage.setItem("crackleaks-effect", effect);
-  } catch (error) {
-    console.warn(error);
-  }
-
-  document.querySelectorAll('input[name="effect"]').forEach(input => {
-    input.checked = input.value === effect;
-  });
-
-  const names = {
-    none: "Эффекты выключены.",
-    sakura: "🌸 Сакура включена!",
-    snow: "❄️ Снег включён!"
-  };
-
-  document.getElementById("effectStatus").textContent = names[effect];
-  startParticles(effect);
-}
-
-function startParticles(effect) {
-  const container = document.getElementById("particles");
-
-  if (particleTimer) {
-    clearInterval(particleTimer);
-    particleTimer = null;
-  }
-
-  container.innerHTML = "";
-  if (effect === "none") return;
-
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-  const symbols = effect === "sakura"
-    ? ["🌸", "🌺", "🌸", "🌷"]
-    : ["❄", "❅", "❆", "❄"];
-
-  particleTimer = setInterval(() => {
-    if (container.childElementCount >= 35) return;
-
-    const particle = document.createElement("span");
-    particle.className = "particle";
-    particle.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-    particle.style.left = Math.random() * 100 + "vw";
-    particle.style.fontSize = (12 + Math.random() * 17) + "px";
-    particle.style.opacity = 0.4 + Math.random() * 0.6;
-    particle.style.setProperty("--drift", (Math.random() * 160 - 80) + "px");
-
-    const duration = 5 + Math.random() * 7;
-    particle.style.animationDuration = duration + "s";
-    container.appendChild(particle);
-
-    setTimeout(() => particle.remove(), duration * 1000);
-  }, 250);
-}
-
-function loadEffectSettings() {
-  let effect = "none";
-
-  try {
-    effect = localStorage.getItem("crackleaks-effect") || "none";
-  } catch (error) {
-    console.warn(error);
-  }
-
-  setEffect(effect);
-}
-
-
-// ========================================
-// КОПИРОВАНИЕ КОМАНДЫ
-// ========================================
-
-async function copyCommand() {
-  const command = document.getElementById("launchCommand").value;
-
-  try {
-    await navigator.clipboard.writeText(command);
-    alert("Команда скопирована!");
-  } catch (error) {
-    const input = document.getElementById("launchCommand");
-    input.select();
-
-    try {
-      const copied = document.execCommand("copy");
-      alert(copied ? "Команда скопирована!" : "Не удалось скопировать команду.");
-    } catch (copyError) {
-      alert("Не удалось скопировать команду.");
-    }
-  }
-}
-
-
-// ========================================
-// ЗАПУСК САЙТА
-// ========================================
-
-checkSession();
-loadEffectSettings();
-
-supabaseClient.auth.onAuthStateChange((event, session) => {
-  updateUserInterface(session?.user || null);
-
-  setTimeout(() => {
-    if (location.hash === "#ratings") loadRatings();
-    if (location.hash === "#leaderboard") loadLeaderboard();
-  }, 0);
-});
-</script>
-
-</body>
-</html>
-
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#090a0f">
-<title>CrackLeaks</title>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{background:#090a0f;color:#f1f1f5;font-family:Arial,sans-serif;min-height:100vh;line-height:1.6}
-header{position:sticky;top:0;z-index:100;background:rgba(12,13,20,.97);border-bottom:1px solid #292a36;backdrop-filter:blur(12px)}
-nav{max-width:1150px;margin:auto;padding:15px 20px;display:flex;justify-content:space-between;align-items:center;gap:15px;flex-wrap:wrap}
-.logo{color:#a78bfa;font-size:25px;font-weight:900;text-decoration:none}
-.nav-links{display:flex;gap:7px;flex-wrap:wrap}
-.nav-links button{border:1px solid transparent;background:transparent;color:#aaaaba;padding:9px 11px;border-radius:8px;cursor:pointer;font-size:14px}
-.nav-links button:hover,.nav-links button.active{background:#292044;border-color:#6345a0;color:#c4aaff}
-.container{max-width:1050px;margin:auto;padding:35px 22px}
-.page{display:none;min-height:65vh;animation:appear .22s ease}
-.page.active{display:block}
-@keyframes appear{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:translateY(0)}}
-.hero{text-align:center;padding:105px 20px 90px;background:radial-gradient(ellipse at top,#35205f,transparent 65%)}
-.hero h1{font-size:clamp(36px,7vw,68px);margin-bottom:18px}
-.hero h1 span{color:#a78bfa}
-.hero p{color:#aaaaba;max-width:620px;margin:0 auto 28px}
-.section-title{font-size:30px;margin-bottom:10px}
-.description{color:#9999aa;margin-bottom:25px}
-.card{background:#12131c;border:1px solid #292a38;border-radius:14px;padding:24px;margin-bottom:20px}
-.card h3{font-size:22px;margin-bottom:10px}
-.card p{color:#aaaaba;margin-bottom:15px}
-.button{display:inline-block;background:#8b5cf6;color:white;border:0;border-radius:9px;padding:12px 19px;font-weight:bold;text-decoration:none;cursor:pointer;transition:.2s;margin:3px 3px 3px 0}
-.button:hover{background:#7544df;transform:translateY(-1px)}
-.button:disabled{opacity:.6;cursor:wait;transform:none}
-.button.secondary{background:#252633;border:1px solid #393a4a}
-.button.secondary:hover{background:#343547}
-.tag{display:inline-block;background:#292044;color:#c4aaff;border-radius:6px;padding:4px 9px;font-size:12px;margin-bottom:12px}
-.steps{padding-left:22px;color:#c1c1ce}
-.steps li{margin-bottom:12px}
-.warning{background:#241b13;border:1px solid #70451e;color:#ffc98b;padding:15px;border-radius:9px;margin-top:20px}
-.field{margin-bottom:15px}
-.field label{display:block;color:#c6c6d2;margin-bottom:7px;font-size:14px}
-.field input{width:100%;padding:13px;background:#090a0f;border:1px solid #343544;border-radius:8px;color:white;outline:none;font-size:15px}
-.field input:focus{border-color:#8b5cf6}
-.auth-card{max-width:480px;margin:25px auto}
-.auth-tabs{display:flex;gap:10px;margin-bottom:22px}
-.auth-tabs button{flex:1}
-.auth-message{margin-top:14px;font-size:14px;color:#bdbdcc;overflow-wrap:anywhere}
-.user-panel{display:none;text-align:center}
-.user-avatar{width:65px;height:65px;border-radius:50%;background:#292044;color:#c4aaff;display:grid;place-items:center;margin:0 auto 15px;font-size:28px}
-.role-badge{display:inline-block;padding:5px 12px;border-radius:7px;font-weight:bold;font-size:12px;margin:10px 0}
-.role-owner{background:#7546d8;color:white}
-.role-admin{background:#2365b5;color:white}
-.role-user{background:#30313e;color:#ccc}
-.rating-average{font-size:25px;color:#f5c451;font-weight:bold;margin-bottom:10px}
-.rating-buttons{display:flex;flex-wrap:wrap;gap:8px}
-.effect-option{display:flex;align-items:center;gap:12px;background:#0c0d14;border:1px solid #292a38;padding:15px;border-radius:10px;margin:12px 0;cursor:pointer}
-.effect-option:hover{border-color:#8b5cf6}
-.effect-option input{accent-color:#8b5cf6;width:18px;height:18px}
-.effect-icon{font-size:25px}
-#particles{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:90}
-.particle{position:absolute;top:-35px;animation:falling linear forwards;user-select:none;will-change:transform}
-@keyframes falling{to{transform:translate3d(var(--drift),110vh,0) rotate(720deg);opacity:.1}}
-.leaderboard-table{width:100%;border-collapse:collapse;margin:10px 0 20px}
-.leaderboard-table th,.leaderboard-table td{text-align:left;padding:12px 8px;border-bottom:1px solid #292a38}
-.leaderboard-table th{color:#bba4ff}
-.leaderboard-table tr:first-child td:first-child{color:#f5c451}
-footer{border-top:1px solid #242630;text-align:center;padding:30px 15px;color:#777787;margin-top:40px}
-@media(max-width:650px){
- nav{justify-content:center}
- .nav-links{justify-content:center}
- .nav-links button{padding:8px 9px;font-size:12px}
- .container{padding:25px 15px}
- .hero{padding-top:70px}
- .card{padding:18px}
- .leaderboard-table th,.leaderboard-table td{padding:9px 4px;font-size:13px}
-}
-@media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;scroll-behavior:auto!important}}
-</style>
-</head>
-
-<body>
-<div id="particles" aria-hidden="true"></div>
-
-<header>
-<nav>
-  <a href="#home" class="logo">CrackLeaks</a>
-  <div class="nav-links">
-    <button data-page="home">Главная</button>
-    <button data-page="catalog">Каталог</button>
-    <button data-page="instruction">Инструкция</button>
-    <button data-page="ratings">Оценки</button>
-    <button data-page="leaderboard">Лидеры</button>
-    <button data-page="settings">Настройки</button>
-    <button data-page="account">Аккаунт</button>
-    <button data-page="contacts">Контакты</button>
-  </div>
-</nav>
-</header>
-
-<main>
-
-<!-- ГЛАВНАЯ -->
-<section class="page" id="page-home">
-  <div class="hero">
-    <h1>Добро пожаловать в <span>CrackLeaks</span></h1>
-    <p>Каталог, полезные материалы и инструкции для CS2. Всё необходимое в одном месте.</p>
-    <button class="button" onclick="navigate('catalog')">Открыть каталог</button>
-  </div>
-  <div class="container">
-    <div class="card">
-      <h3>Добро пожаловать!</h3>
-      <p>Выбирай нужный раздел через меню сверху. Здесь собраны материалы и настройки CrackLeaks.</p>
-    </div>
-  </div>
-</section>
-
-<!-- КАТАЛОГ -->
-<section class="page" id="page-catalog">
-  <div class="container">
-    <h2 class="section-title">Каталог</h2>
-    <p class="description">Доступные материалы и полезные ссылки.</p>
-    <div class="card">
-      <span class="tag">CS2</span>
-      <h3>NeverLose</h3>
-      <p>Материал из каталога CrackLeaks. Перед использованием проверяйте загружаемые файлы.</p>
-      <a class="button" href="https://workupload.com/file/sJpJsgeTdPs" target="_blank" rel="noopener noreferrer">Скачать</a>
-      <button class="button secondary" onclick="navigate('ratings')">Посмотреть оценки</button>
-    </div>
-  </div>
-</section>
-
-<!-- ИНСТРУКЦИЯ -->
-<section class="page" id="page-instruction">
-  <div class="container">
-    <h2 class="section-title">Инструкция CS2</h2>
-    <p class="description">Параметр запуска игры.</p>
-    <div class="card">
-      <h3>Параметр запуска</h3>
-      <ol class="steps">
-        <li>Открой Steam.</li>
-        <li>Перейди в библиотеку игр.</li>
-        <li>Нажми правой кнопкой на Counter-Strike 2.</li>
-        <li>Открой «Свойства».</li>
-        <li>Найди поле «Параметры запуска».</li>
-        <li>Вставь команду ниже.</li>
-      </ol>
-      <div class="field">
-        <input id="launchCommand" value="-allow_third_party_software" readonly>
-      </div>
-      <button class="button" onclick="copyCommand()">Скопировать команду</button>
-      <div class="warning">Этот параметр может повлиять на доверенный статус игры и подбор матчей.</div>
-    </div>
-  </div>
-</section>
-
-<!-- ОЦЕНКИ -->
-<section class="page" id="page-ratings">
-  <div class="container">
-    <h2 class="section-title">Оценки работ</h2>
-    <p class="description">Оценивай материалы и смотри оценки других пользователей.</p>
-    <div class="card">
-      <span class="tag">CS2</span>
-      <h3>NeverLose</h3>
-      <div class="rating-average" id="ratingAverage">Загрузка...</div>
-      <p id="ratingCount">Загружаем оценки...</p>
-      <div class="rating-buttons">
-        <button class="button secondary" onclick="rateWork(1)">⭐ 1</button>
-        <button class="button secondary" onclick="rateWork(2)">⭐ 2</button>
-        <button class="button secondary" onclick="rateWork(3)">⭐ 3</button>
-        <button class="button secondary" onclick="rateWork(4)">⭐ 4</button>
-        <button class="button secondary" onclick="rateWork(5)">⭐ 5</button>
-      </div>
-      <p id="myRating" style="margin-top:18px">Войди в аккаунт, чтобы оценить работу.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ТАБЛИЦА ЛИДЕРОВ -->
-<section class="page" id="page-leaderboard">
-  <div class="container">
-    <h2 class="section-title">🏆 Таблица лидеров</h2>
-    <p class="description">Самые активные пользователи CrackLeaks.</p>
-    <div class="card">
-      <div id="leaderboardContent">Загружаем таблицу лидеров...</div>
-      <button class="button secondary" onclick="loadLeaderboard()">Обновить</button>
-    </div>
-  </div>
-</section>
-
-<!-- НАСТРОЙКИ -->
-<section class="page" id="page-settings">
-  <div class="container">
-    <h2 class="section-title">Настройки сайта</h2>
-    <p class="description">Настрой CrackLeaks под себя.</p>
-    <div class="card">
-      <h3>Визуальные эффекты</h3>
-      <p>Выбери эффект, который будет отображаться на сайте.</p>
-      <label class="effect-option">
-        <input type="radio" name="effect" value="none" onchange="setEffect('none')">
-        <span class="effect-icon">🚫</span><span>Без эффектов</span>
-      </label>
-      <label class="effect-option">
-        <input type="radio" name="effect" value="sakura" onchange="setEffect('sakura')">
-        <span class="effect-icon">🌸</span><span>Падающая сакура</span>
-      </label>
-      <label class="effect-option">
-        <input type="radio" name="effect" value="snow" onchange="setEffect('snow')">
-        <span class="effect-icon">❄️</span><span>Падающий снег</span>
-      </label>
-      <p id="effectStatus" class="auth-message">Выбери оформление.</p>
-    </div>
-  </div>
-</section>
-
-<!-- АККАУНТ -->
-<section class="page" id="page-account">
-  <div class="container">
-    <h2 class="section-title" style="text-align:center">Личный кабинет</h2>
-    <p class="description" style="text-align:center">Зарегистрируйся или войди в аккаунт CrackLeaks.</p>
-
-    <div class="card auth-card">
-      <div id="authForms">
-        <div class="auth-tabs">
-          <button class="button" id="loginTab" onclick="setMode('login')">Войти</button>
-          <button class="button secondary" id="registerTab" onclick="setMode('register')">Регистрация</button>
-        </div>
-
-        <form id="authForm">
-          <div class="field" id="usernameField" style="display:none">
-            <label for="username">Имя пользователя</label>
-            <input id="username" type="text" placeholder="Придумай имя" minlength="3" maxlength="24">
-          </div>
-          <div class="field">
-            <label for="email">Email</label>
-            <input id="email" type="email" placeholder="example@mail.com" required>
-          </div>
-          <div class="field">
-            <label for="password">Пароль</label>
-            <input id="password" type="password" placeholder="Минимум 8 символов" minlength="8" required>
-          </div>
-          <button class="button" id="submitButton" type="submit">Войти</button>
-        </form>
-        <div class="auth-message" id="authMessage" role="status"></div>
-      </div>
-
-      <div class="user-panel" id="userPanel">
-        <div class="user-avatar">👤</div>
-        <h3 id="userName">Пользователь</h3>
-        <div id="roleBadge"></div>
-        <p id="userEmail"></p>
-
-        <!-- Панель владельца -->
-        <div id="ownerPanel" style="display:none;margin-top:25px;text-align:left">
-          <div class="card">
-            <h3>⚙️ Управление администраторами</h3>
-            <p>Назначение и снятие прав Admin по email зарегистрированного пользователя.</p>
-            <div class="field">
-              <label for="adminEmail">Email пользователя</label>
-              <input id="adminEmail" type="email" placeholder="user@example.com">
-            </div>
-            <button class="button" onclick="manageAdmin(true)">Назначить Admin</button>
-            <button class="button secondary" onclick="manageAdmin(false)">Снять Admin</button>
-            <div id="adminMessage" class="auth-message" role="status"></div>
-          </div>
-        </div>
-
-        <button class="button secondary" onclick="logout()">Выйти из аккаунта</button>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- КОНТАКТЫ -->
-<section class="page" id="page-contacts">
-  <div class="container">
-    <h2 class="section-title">Контакты</h2>
-    <div class="card">
-      <h3>CrackLeaks</h3>
-      <p>По вопросам работы сайта и сотрудничества можно связаться с администрацией.</p>
-      <p>Telegram: добавь сюда свою ссылку.</p>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<footer>© 2026 CrackLeaks. Все права защищены.</footer>
-
-<script>
-// ========================================
-// НАВИГАЦИЯ
-// ========================================
-
-const pageNames = [
-  "home", "catalog", "instruction", "ratings",
-  "leaderboard", "settings", "account", "contacts"
-];
-
-function navigate(page) {
-  if (!pageNames.includes(page)) page = "home";
-
-  if (location.hash !== "#" + page) {
-    location.hash = page;
-  } else {
-    showPage(page);
-  }
-}
-
-function showPage(page) {
-  if (!pageNames.includes(page)) page = "home";
-
-  document.querySelectorAll(".page").forEach(section => {
-    section.classList.toggle("active", section.id === "page-" + page);
-  });
-
-  document.querySelectorAll(".nav-links button").forEach(button => {
-    button.classList.toggle("active", button.dataset.page === page);
-  });
-
-  window.scrollTo(0, 0);
-
-  if (page === "ratings") loadRatings();
-  if (page === "leaderboard") loadLeaderboard();
-}
-
-document.querySelectorAll(".nav-links button").forEach(button => {
-  button.addEventListener("click", () => navigate(button.dataset.page));
-});
-
-function handleRoute() {
-  const page = location.hash.replace("#", "") || "home";
-  showPage(page);
-}
-
-window.addEventListener("hashchange", handleRoute);
-handleRoute();
-
-
-// ========================================
-// SUPABASE
-// ========================================
-
-const SUPABASE_URL = "https://tjjnxhcxxrdzsynmyrju.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_lrDnO3hIt1uqzDPWaklr0Q_xSLSGw4V";
-
-const supabaseClient = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY,
-  {
-    auth: {
-      persistSession: true,
-      autoRefreshToken: true,
-      detectSessionInUrl: true
-    }
-  }
-);
-
-
-// ========================================
-// АВТОРИЗАЦИЯ
-// ========================================
-
-let currentMode = "login";
-
-function setMode(mode) {
-  currentMode = mode;
-  const register = mode === "register";
-
-  document.getElementById("usernameField").style.display =
-    register ? "block" : "none";
-
-  document.getElementById("submitButton").textContent =
-    register ? "Зарегистрироваться" : "Войти";
-
-  document.getElementById("loginTab").className =
-    register ? "button secondary" : "button";
-
-  document.getElementById("registerTab").className =
-    register ? "button" : "button secondary";
-
-  document.getElementById("password").autocomplete =
-    register ? "new-password" : "current-password";
-
-  document.getElementById("authMessage").textContent = "";
-}
-
-function showMessage(message, isError = false) {
-  const element = document.getElementById("authMessage");
-  element.textContent = message;
-  element.style.color = isError ? "#ff7777" : "#a78bfa";
-}
-
-document.getElementById("authForm").addEventListener("submit", async event => {
-  event.preventDefault();
-
-  const button = document.getElementById("submitButton");
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-  const username = document.getElementById("username").value.trim();
-
-  if (password.length < 8) {
-    showMessage("Пароль должен содержать минимум 8 символов.", true);
-    return;
-  }
-
-  if (currentMode === "register" && username.length < 3) {
-    showMessage("Имя должно содержать минимум 3 символа.", true);
-    return;
-  }
-
-  button.disabled = true;
-  button.textContent = "Подождите...";
-
-  try {
-    if (currentMode === "register") {
-      const { data, error } = await supabaseClient.auth.signUp({
-        email,
-        password,
-        options: {
-          data: { username },
-          emailRedirectTo: window.location.origin + window.location.pathname
-        }
-      });
-
-      if (error) throw error;
-
-      if (data.session) {
-        showMessage("Регистрация успешна!");
-      } else {
-        showMessage("Аккаунт создан! Проверь почту и подтверди email.");
-      }
-    } else {
-      const { error } = await supabaseClient.auth.signInWithPassword({
-        email,
-        password
-      });
-
-      if (error) throw error;
-      showMessage("Вход выполнен!");
-    }
-  } catch (error) {
-    showMessage(error.message || "Произошла ошибка.", true);
-  } finally {
-    button.disabled = false;
-    button.textContent =
-      currentMode === "register" ? "Зарегистрироваться" : "Войти";
-  }
-});
-
-
-// ========================================
-// ПРОФИЛЬ И РОЛИ
-// ========================================
-
-function updateUserInterface(user) {
-  const authForms = document.getElementById("authForms");
-  const userPanel = document.getElementById("userPanel");
-  const ownerPanel = document.getElementById("ownerPanel");
-  const roleBadge = document.getElementById("roleBadge");
-
-  authForms.style.display = user ? "none" : "block";
-  userPanel.style.display = user ? "block" : "none";
-
-  if (!user) {
-    ownerPanel.style.display = "none";
-    roleBadge.innerHTML = "";
-    return;
-  }
-
-  const role = user.app_metadata?.role || "user";
-  const username = role === "owner"
-    ? "CrackLeak"
-    : (user.user_metadata?.username || user.email || "User");
-
-  document.getElementById("userName").textContent = username;
-  document.getElementById("userEmail").textContent = user.email || "";
-
-  if (role === "owner") {
-    roleBadge.innerHTML =
-      '<span class="role-badge role-owner">⚡ DEVELOPER</span>';
-    ownerPanel.style.display = "block";
-  } else if (role === "admin") {
-    roleBadge.innerHTML =
-      '<span class="role-badge role-admin">🛡 ADMIN</span>';
-    ownerPanel.style.display = "none";
-  } else {
-    roleBadge.innerHTML =
-      '<span class="role-badge role-user">USER</span>';
-    ownerPanel.style.display = "none";
-  }
-}
-
-async function checkSession() {
-  const { data, error } = await supabaseClient.auth.getSession();
-
-  if (error) {
-    console.error(error);
-    return;
-  }
-
-  updateUserInterface(data.session?.user || null);
-}
-
-async function logout() {
-  const { error } = await supabaseClient.auth.signOut();
-
-  if (error) {
-    alert(error.message);
-    return;
-  }
-
-  updateUserInterface(null);
-  setMode("login");
-  alert("Ты вышел из аккаунта.");
-}
-
-
-// ========================================
-// УПРАВЛЕНИЕ АДМИНИСТРАТОРАМИ
-// ========================================
-
-async function manageAdmin(makeAdmin) {
-  const email = document.getElementById("adminEmail").value.trim();
-  const message = document.getElementById("adminMessage");
-
-  if (!email) {
-    message.textContent = "Введи email пользователя.";
-    return;
-  }
-
-  message.textContent = "Выполняется...";
-
-  const { data: sessionData, error: sessionError } =
-    await supabaseClient.auth.getSession();
-
-  if (sessionError) {
-    message.textContent = sessionError.message;
-    return;
-  }
-
-  const user = sessionData.session?.user;
-
-  if (user?.app_metadata?.role !== "owner") {
-    message.textContent = "Недостаточно прав.";
-    return;
-  }
-
-  const { data, error } = await supabaseClient.rpc("set_admin_role", {
-    target_email: email,
-    make_admin: makeAdmin
-  });
-
-  if (error) {
-    message.textContent = "Ошибка: " + error.message;
-    return;
-  }
-
-  message.textContent = data +
-    ". Пользователю нужно войти заново, чтобы обновить роль.";
-}
-
-
-// ========================================
-// ОЦЕНКИ
-// ========================================
-
-async function loadRatings() {
-  const averageElement = document.getElementById("ratingAverage");
-  const countElement = document.getElementById("ratingCount");
-  const myRatingElement = document.getElementById("myRating");
-
-  const { data, error } = await supabaseClient
-    .from("work_ratings")
-    .select("rating,user_id")
-    .eq("work_name", "NeverLose");
-
-  if (error) {
-    averageElement.textContent = "Ошибка загрузки";
-    countElement.textContent = "Проверь таблицу work_ratings в Supabase.";
-    console.error(error);
-    return;
-  }
-
-  const ratings = data || [];
-
-  if (ratings.length === 0) {
-    averageElement.textContent = "⭐ 0.0 / 5";
-    countElement.textContent = "Пока нет оценок.";
-  } else {
-    const average =
-      ratings.reduce((sum, item) => sum + item.rating, 0) / ratings.length;
-
-    averageElement.textContent = "⭐ " + average.toFixed(1) + " / 5";
-    countElement.textContent = ratings.length + " оценок";
-  }
-
-  const { data: sessionData } = await supabaseClient.auth.getSession();
-  const user = sessionData.session?.user;
-
-  if (!user) {
-    myRatingElement.textContent = "Войди в аккаунт, чтобы поставить оценку.";
-    return;
-  }
-
-  const ownRating = ratings.find(item => item.user_id === user.id);
-
-  myRatingElement.textContent = ownRating
-    ? "Твоя оценка: " + "⭐".repeat(ownRating.rating)
-    : "Ты ещё не оценивал эту работу.";
-}
-
-async function rateWork(value) {
-  const { data, error: sessionError } = await supabaseClient.auth.getSession();
-
-  if (sessionError) {
-    alert(sessionError.message);
-    return;
-  }
-
-  const user = data.session?.user;
-
-  if (!user) {
-    alert("Сначала войди в аккаунт!");
-    navigate("account");
-    return;
-  }
-
-  const { error } = await supabaseClient
-    .from("work_ratings")
-    .upsert({
-      work_name: "NeverLose",
-      user_id: user.id,
-      rating: value
-    }, {
-      onConflict: "work_name,user_id"
-    });
-
-  if (error) {
-    alert("Ошибка сохранения оценки: " + error.message);
-    return;
-  }
-
-  await loadRatings();
-  alert("Оценка сохранена!");
-}
-
-
-// ========================================
-// ТАБЛИЦА ЛИДЕРОВ
-// ========================================
-
-async function loadLeaderboard() {
-  const container = document.getElementById("leaderboardContent");
-  container.textContent = "Загружаем таблицу лидеров...";
-
-  const { data, error } =
-    await supabaseClient.rpc("get_leaderboard");
-
-  if (error) {
-    container.textContent = "Не удалось загрузить рейтинг: " + error.message;
-    return;
-  }
-
-  if (!data || data.length === 0) {
-    container.textContent = "Пока нет пользователей с оценками.";
-    return;
-  }
-
-  const table = document.createElement("table");
-  table.className = "leaderboard-table";
-
-  const thead = document.createElement("thead");
-  const headerRow = document.createElement("tr");
-
-  ["Место", "Пользователь", "Оценок", "Средняя оценка"].forEach(title => {
-    const th = document.createElement("th");
-    th.textContent = title;
-    headerRow.appendChild(th);
-  });
-
-  thead.appendChild(headerRow);
-  table.appendChild(thead);
-
-  const tbody = document.createElement("tbody");
-
-  data.forEach((item, index) => {
-    const row = document.createElement("tr");
-
-    const place = index === 0 ? "🥇 1" :
-      index === 1 ? "🥈 2" :
-      index === 2 ? "🥉 3" : String(index + 1);
-
-    const values = [
-      place,
-      item.username,
-      String(item.ratings_count),
-      "⭐ " + Number(item.average_rating).toFixed(2)
-    ];
-
-    values.forEach(value => {
-      const td = document.createElement("td");
-      td.textContent = value;
-      row.appendChild(td);
-    });
 
     tbody.appendChild(row);
   });
