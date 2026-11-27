@@ -1,986 +1,195 @@
-
+```html
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#101014">
-<meta name="description" content="CrackLeaks — CS2 gaming configurations community.">
-<title>CrackLeaks — CS2 Config Market</title>
+<meta name="theme-color" content="#09090e">
+
+<title>CrackLeaks — Gaming Store</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
-:root {
-  --bg:#0c0c10;
-  --panel:#15151c;
-  --panel2:#1c1c25;
-  --border:#292933;
-  --red:#ef343e;
-  --text:#f5f5f7;
-  --muted:#9999a7;
-  --green:#45cf87;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-* {
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-  background:var(--bg);
-  color:var(--text);
-  font-family:Arial,sans-serif;
-  min-height:100vh;
+    background: #09090e;
+    color: #fff;
+    font-family: Inter, sans-serif;
 }
 
-button,input,textarea,select {
-  font:inherit;
-}
-
-button {
-  cursor:pointer;
-}
-
-header {
-  background:#111116;
-  border-bottom:1px solid var(--border);
-  position:sticky;
-  top:0;
-  z-index:10;
-}
-
-.nav {
-  max-width:1200px;
-  margin:auto;
-  min-height:75px;
-  padding:15px 22px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:20px;
-}
-
-.logo {
-  font-size:25px;
-  font-weight:900;
-  letter-spacing:-1px;
-}
-
-.logo span {
-  color:var(--red);
-}
-
-.navlinks {
-  display:flex;
-  align-items:center;
-  gap:22px;
-}
-
-.navlinks a {
-  color:#c6c6ce;
-  text-decoration:none;
-  font-size:14px;
-}
-
-.navlinks a:hover {
-  color:var(--red);
-}
-
-.profile-btn,.main-btn {
-  background:var(--red);
-  color:white;
-  border:0;
-  padding:11px 17px;
-  border-radius:6px;
-  font-weight:bold;
-}
-
-.hero {
-  max-width:1200px;
-  margin:35px auto;
-  padding:65px 35px;
-  background:
-    radial-gradient(ellipse at 85% 20%,#542027 0%,transparent 40%),
-    linear-gradient(120deg,#20202b,#111116);
-  border:1px solid #34303b;
-  border-radius:13px;
-}
-
-.hero-label {
-  color:#ff555e;
-  font-size:12px;
-  font-weight:bold;
-  letter-spacing:3px;
-  margin-bottom:20px;
-}
-
-.hero h1 {
-  font-size:clamp(35px,6vw,65px);
-  font-weight:900;
-  max-width:700px;
-  line-height:1.05;
-}
-
-.hero h1 span {
-  color:var(--red);
-}
-
-.hero p {
-  color:var(--muted);
-  margin-top:18px;
-  line-height:1.7;
-  max-width:570px;
-}
-
-.hero .main-btn {
-  display:inline-block;
-  margin-top:27px;
-  text-decoration:none;
-}
-
-.stats {
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:15px;
-  max-width:1200px;
-  margin:25px auto 45px;
-  padding:0 15px;
-}
-
-.stat {
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:9px;
-  padding:20px;
-  text-align:center;
-}
-
-.stat strong {
-  display:block;
-  font-size:25px;
-  color:var(--red);
-}
-
-.stat small {
-  color:var(--muted);
-  display:block;
-  margin-top:7px;
+a {
+    text-decoration: none;
+    color: inherit;
 }
 
 .container {
-  max-width:1200px;
-  margin:55px auto;
-  padding:0 20px;
+    width: 90%;
+    max-width: 1150px;
+    margin: auto;
 }
 
-.section-head {
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  flex-wrap:wrap;
-  gap:15px;
-  margin-bottom:22px;
+/* HEADER */
+
+header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(9,9,14,.94);
+    backdrop-filter: blur(15px);
+    border-bottom: 1px solid #22212d;
 }
 
-.section-head h2 {
-  font-size:27px;
+.nav {
+    height: 75px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.section-head p {
-  color:var(--muted);
-  font-size:13px;
-  margin-top:7px;
+.logo {
+    font-size: 25px;
+    font-weight: 900;
+    letter-spacing: -1px;
 }
 
-.searchbox {
-  width:100%;
-  background:var(--panel);
-  border:1px solid var(--border);
-  color:white;
-  padding:15px;
-  border-radius:7px;
-  outline:none;
-  margin-bottom:15px;
+.logo span {
+    color: #974cff;
 }
 
-.searchbox:focus,.field:focus {
-  border-color:var(--red);
+.nav-links {
+    display: flex;
+    gap: 30px;
 }
 
-.filters {
-  display:flex;
-  gap:9px;
-  flex-wrap:wrap;
-  margin-bottom:25px;
+.nav-links a {
+    font-size: 13px;
+    color: #aaa;
+    transition: .2s;
 }
 
-.filter {
-  background:var(--panel);
-  color:#bbb;
-  border:1px solid var(--border);
-  border-radius:5px;
-  padding:9px 15px;
+.nav-links a:hover {
+    color: #a56aff;
 }
 
-.filter.active,.filter:hover {
-  background:var(--red);
-  border-color:var(--red);
-  color:white;
+.nav-button {
+    padding: 12px 19px;
+    border-radius: 7px;
+    background: #8b45ee;
+    font-size: 12px;
+    font-weight: 700;
+    transition: .3s;
 }
 
-.cards {
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:18px;
+.nav-button:hover {
+    background: #a56aff;
+    box-shadow: 0 0 20px #8b45ee66;
 }
 
-.card {
-  background:var(--panel);
-  border:1px solid var(--border);
-  border-radius:10px;
-  overflow:hidden;
-  transition:.2s;
+/* HERO */
+
+.hero {
+    min-height: 490px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
 }
 
-.card:hover {
-  transform:translateY(-4px);
-  border-color:#a83a43;
+.hero:before {
+    content: "";
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    background: #7629e8;
+    filter: blur(180px);
+    opacity: .17;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
-.card-banner {
-  height:120px;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  background:linear-gradient(130deg,#36151b,#171721);
-  font-size:35px;
-  font-weight:900;
-  color:#ff4b55;
+.hero-content {
+    position: relative;
+    width: 100%;
 }
 
-.card-content {
-  padding:19px;
+.hero-label {
+    display: inline-block;
+    padding: 9px 17px;
+    border: 1px solid #603b91;
+    background: #251439;
+    border-radius: 30px;
+    color: #c49aff;
+    font-size: 11px;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
 }
 
-.card h3 {
-  font-size:19px;
-  margin-bottom:10px;
+.hero h1 {
+    font-size: clamp(42px, 7vw, 75px);
+    font-weight: 900;
+    letter-spacing: -4px;
+    margin-bottom: 20px;
 }
 
-.card p {
-  font-size:13px;
-  color:var(--muted);
-  line-height:1.6;
-  min-height:60px;
+.gradient {
+    background: linear-gradient(90deg,#a56aff,#06b6d4);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
-.tag {
-  display:inline-block;
-  color:#ff777e;
-  background:#351c21;
-  padding:6px 9px;
-  border-radius:4px;
-  font-size:11px;
-  margin:13px 0;
+.hero p {
+    color: #9999a9;
+    font-size: 15px;
+    line-height: 1.8;
+    max-width: 550px;
+    margin: auto;
 }
 
-.card-bottom {
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap:10px;
-  border-top:1px solid var(--border);
-  padding-top:14px;
-  margin-top:8px;
+/* CATALOG */
+
+.catalog {
+    padding: 65px 0 110px;
 }
 
-.rating {
-  color:#ffbd42;
-  font-size:14px;
+.section-title {
+    text-align: center;
+    margin-bottom: 45px;
 }
 
-.details-btn {
-  background:#30303b;
-  color:white;
-  border:0;
-  border-radius:5px;
-  padding:9px 12px;
-  font-size:12px;
+.section-title small {
+    color: #a56aff;
+    letter-spacing: 3px;
+    font-size: 11px;
+    font-weight: 800;
 }
 
-.details-btn:hover {
-  background:var(--red);
+.section-title h2 {
+    font-size: 37px;
+    margin-top: 12px;
+    letter-spacing: -1.5px;
 }
 
-.empty {
-  color:var(--muted);
-  padding:35px;
-  text-align:center;
-  grid-column:1/-1;
+.product-grid {
+    display: flex;
+    justify-content: center;
 }
 
-.community {
-  background:var(--panel);
-  border:1px solid var(--border);
-  padding:28px;
-  border-radius:10px;
-}
-
-.community p {
-  color:var(--muted);
-  line-height:1.7;
-  margin-top:10px;
-}
-
-footer {
-  text-align:center;
-  padding:35px 15px;
-  border-top:1px solid var(--border);
-  color:#777;
-  font-size:13px;
-  line-height:2;
-}
-
-footer strong {
-  color:var(--red);
-}
-
-.modal {
-  display:none;
-  position:fixed;
-  inset:0;
-  background:#000c;
-  z-index:30;
-  align-items:center;
-  justify-content:center;
-  padding:15px;
-  overflow-y:auto;
-}
-
-.modal.open {
-  display:flex;
-}
-
-.modal-box {
-  background:#181820;
-  border:1px solid #393943;
-  border-radius:12px;
-  padding:25px;
-  width:100%;
-  max-width:470px;
-  max-height:90vh;
-  overflow-y:auto;
-}
-
-.modal-box h2 {
-  margin-bottom:18px;
-}
-
-.close {
-  float:right;
-  color:#aaa;
-  background:none;
-  border:0;
-  font-size:24px;
-}
-
-.field {
-  width:100%;
-  padding:13px;
-  border:1px solid var(--border);
-  background:#101016;
-  color:white;
-  border-radius:6px;
-  margin:8px 0 15px;
-  outline:none;
-}
-
-.field-label {
-  color:#bbb;
-  font-size:13px;
-}
-
-.full-btn {
-  width:100%;
-  padding:13px;
-  background:var(--red);
-  border:0;
-  color:white;
-  border-radius:6px;
-  font-weight:bold;
-  margin-top:8px;
-}
-
-.muted {
-  color:var(--muted);
-  font-size:12px;
-  line-height:1.6;
-}
-
-.comment {
-  padding:13px 0;
-  border-bottom:1px solid var(--border);
-}
-
-.comment strong {
-  color:#ff646b;
-  font-size:13px;
-}
-
-.comment p {
-  color:#ccc;
-  font-size:13px;
-  margin-top:7px;
-  line-height:1.6;
-  overflow-wrap:anywhere;
-}
-
-.stars {
-  display:flex;
-  gap:8px;
-  margin:12px 0;
-}
-
-.star {
-  font-size:27px;
-  color:#555;
-  background:none;
-  border:0;
-}
-
-.star.selected {
-  color:#ffbd42;
-}
-
-@media(max-width:850px) {
-  .cards {
-    grid-template-columns:repeat(2,minmax(0,1fr));
-  }
-}
-
-@media(max-width:580px) {
-  .nav {
-    flex-wrap:wrap;
-  }
-  .navlinks {
-    order:3;
-    width:100%;
-    justify-content:center;
-    gap:15px;
-  }
-  .hero {
-    margin:15px;
-    padding:40px 22px;
-  }
-  .cards {
-    grid-template-columns:1fr;
-  }
-  .stats {
-    gap:7px;
-  }
-  .stat {
-    padding:13px 5px;
-  }
-  .stat strong {
-    font-size:20px;
-  }
-}
-</style>
-</head>
-
-<body>
-
-<header>
-  <div class="nav">
-    <div class="logo">CRACK<span>LEAKS</span></div>
-
-    <nav class="navlinks">
-      <a href="#home">Главная</a>
-      <a href="#catalog">Каталог</a>
-      <a href="#community">Сообщество</a>
-    </nav>
-
-    <button class="profile-btn" onclick="openProfile()"
-      id="profileButton">Войти</button>
-  </div>
-</header>
-
-<section class="hero" id="home">
-  <div class="hero-label">COUNTER-STRIKE 2 COMMUNITY</div>
-  <h1>UPGRADE YOUR <span>GAME.</span></h1>
-  <p>
-    Добро пожаловать в CrackLeaks.
-    Игровые конфиги, прицелы, настройки
-    и полезные материалы для CS2.
-  </p>
-  <a class="main-btn" href="#catalog">Смотреть каталог →</a>
-</section>
-
-<section class="stats">
-  <div class="stat">
-    <strong id="configCount">6</strong>
-    <small>Материалов</small>
-  </div>
-  <div class="stat">
-    <strong>CS2</strong>
-    <small>Наше сообщество</small>
-  </div>
-  <div class="stat">
-    <strong>FREE</strong>
-    <small>Бесплатный доступ</small>
-  </div>
-</section>
-
-<main class="container" id="catalog">
-
-  <div class="section-head">
-    <div>
-      <h2>Каталог материалов</h2>
-      <p>Найди подходящие настройки для своей игры.</p>
-    </div>
-  </div>
-
-  <input
-    class="searchbox"
-    id="search"
-    type="search"
-    placeholder="⌕ Поиск конфигов и материалов..."
-    oninput="renderCards()"
-  >
-
-  <div class="filters">
-    <button class="filter active" data-filter="Все"
-      onclick="setFilter('Все',this)">Все</button>
-    <button class="filter" data-filter="Прицелы"
-      onclick="setFilter('Прицелы',this)">Прицелы</button>
-    <button class="filter" data-filter="Настройки"
-      onclick="setFilter('Настройки',this)">Настройки</button>
-    <button class="filter" data-filter="Конфиги"
-      onclick="setFilter('Конфиги',this)">Конфиги</button>
-    <button class="filter" data-filter="Гайды"
-      onclick="setFilter('Гайды',this)">Гайды</button>
-  </div>
-
-  <div class="cards" id="cards"></div>
-
-</main>
-
-<section class="container" id="community">
-  <div class="community">
-    <h2>CRACKLEAKS COMMUNITY</h2>
-    <p>
-      Наш проект посвящён Counter-Strike 2.
-      Делитесь опытом, оценивайте материалы
-      и обсуждайте игровые настройки.
-    </p>
-    <button class="main-btn" style="margin-top:20px"
-      onclick="openProfile()">Создать профиль</button>
-  </div>
-</section>
-
-<footer>
-  <strong>CRACKLEAKS</strong><br>
-  CS2 Gaming Community<br>
-  © 2026 CrackLeaks. Fan-made community.
-  <br>Неофициальный сайт сообщества.
-</footer>
-
-<!-- PROFILE MODAL -->
-
-<div class="modal" id="profileModal">
-  <div class="modal-box">
-    <button class="close" onclick="closeModal('profileModal')">×</button>
-    <h2>Твой профиль</h2>
-
-    <div id="profileContent">
-      <label class="field-label">Игровой никнейм</label>
-      <input class="field" id="nickname"
-        maxlength="20" placeholder="Например: Player123">
-
-      <button class="full-btn" onclick="registerUser()">
-        Создать профиль
-      </button>
-
-      <p class="muted" style="margin-top:13px">
-        Демо-регистрация без пароля.
-        Профиль хранится только в этом браузере.
-      </p>
-    </div>
-  </div>
-</div>
-
-<!-- DETAILS MODAL -->
-
-<div class="modal" id="detailsModal">
-  <div class="modal-box">
-    <button class="close" onclick="closeModal('detailsModal')">×</button>
-    <div id="detailsContent"></div>
-  </div>
-</div>
-
-<script>
-
-// MATERIAL CATALOG
-
-const configs = [
-  {
-    id:"cfg1",
-    title:"Pro Crosshair",
-    category:"Прицелы",
-    icon:"✛",
-    description:"Подборка минималистичных прицелов для комфортной стрельбы.",
-    tags:"CROSSHAIR"
-  },
-  {
-    id:"cfg2",
-    title:"Competitive Config",
-    category:"Конфиги",
-    icon:"⚙",
-    description:"Пример соревновательной конфигурации для CS2.",
-    tags:"CONFIG"
-  },
-  {
-    id:"cfg3",
-    title:"FPS Optimization",
-    category:"Настройки",
-    icon:"⚡",
-    description:"Рекомендации по настройке графики и производительности.",
-    tags:"OPTIMIZATION"
-  },
-  {
-    id:"cfg4",
-    title:"Aim Training",
-    category:"Гайды",
-    icon:"🎯",
-    description:"Руководство по тренировке прицеливания и контроля мыши.",
-    tags:"TRAINING"
-  },
-  {
-    id:"cfg5",
-    title:"Movement Guide",
-    category:"Гайды",
-    icon:"🏃",
-    description:"Основы передвижения, контр-стрейфа и игровой механики.",
-    tags:"MOVEMENT"
-  },
-  {
-    id:"cfg6",
-    title:"Mouse Settings",
-    category:"Настройки",
-    icon:"🖱",
-    description:"Разбор чувствительности мыши и настроек управления.",
-    tags:"MOUSE"
-  }
-];
-
-let currentFilter = "Все";
-let currentUser = localStorage.getItem("cl_user") || "";
-
-function readData(key, fallback) {
-  try {
-    const data = JSON.parse(localStorage.getItem(key));
-    return data ?? fallback;
-  } catch {
-    return fallback;
-  }
-}
-
-function saveData(key, value) {
-  localStorage.setItem(key, JSON.stringify(value));
-}
-
-// RATINGS
-
-function getRatings(id) {
-  return readData("cl_ratings_" + id, {});
-}
-
-function averageRating(id) {
-  const ratings = Object.values(getRatings(id));
-  if (!ratings.length) return "—";
-
-  const avg = ratings.reduce((a,b)=>a+b,0) / ratings.length;
-  return avg.toFixed(1);
-}
-
-function ratingCount(id) {
-  return Object.keys(getRatings(id)).length;
-}
-
-// COMMENTS
-
-function getComments(id) {
-  return readData("cl_comments_" + id, []);
-}
-
-// CATALOG RENDERING
-
-function renderCards() {
-  const search = document.getElementById("search")
-    .value.toLowerCase().trim();
-
-  const cards = document.getElementById("cards");
-
-  const filtered = configs.filter(item => {
-    const matchesSearch =
-      (item.title + " " + item.description + " " + item.category)
-      .toLowerCase().includes(search);
-
-    const matchesFilter =
-      currentFilter === "Все" ||
-      item.category === currentFilter;
-
-    return matchesSearch && matchesFilter;
-  });
-
-  document.getElementById("configCount").textContent =
-    configs.length;
-
-  if (!filtered.length) {
-    cards.innerHTML =
-      '<div class="empty">Ничего не найдено. Попробуй другой запрос.</div>';
-    return;
-  }
-
-  cards.innerHTML = filtered.map(item => `
-    <article class="card">
-      <div class="card-banner">${item.icon}</div>
-      <div class="card-content">
-        <h3>${item.title}</h3>
-        <p>${item.description}</p>
-        <span class="tag">${item.tags}</span>
-
-        <div class="card-bottom">
-          <div>
-            <div class="rating">★ ${averageRating(item.id)}</div>
-            <small style="color:#888">
-              ${ratingCount(item.id)} оценок
-            </small>
-          </div>
-          <button class="details-btn"
-            onclick="openDetails('${item.id}')">
-            Подробнее
-          </button>
-        </div>
-      </div>
-    </article>
-  `).join("");
-}
-
-function setFilter(filter, button) {
-  currentFilter = filter;
-
-  document.querySelectorAll(".filter")
-    .forEach(btn => btn.classList.remove("active"));
-
-  button.classList.add("active");
-  renderCards();
-}
-
-// PROFILE
-
-function openProfile() {
-  updateProfile();
-  document.getElementById("profileModal").classList.add("open");
-}
-
-function updateProfile() {
-  const button = document.getElementById("profileButton");
-  const content = document.getElementById("profileContent");
-
-  if (currentUser) {
-    button.textContent = currentUser;
-
-    content.innerHTML = `
-      <p style="color:#45cf87;margin-bottom:15px">
-        ✓ Ты вошёл как ${escapeHTML(currentUser)}
-      </p>
-      <p class="muted">Твой локальный игровой профиль активен.</p>
-      <button class="full-btn" onclick="logout()">Выйти</button>
-    `;
-  } else {
-    button.textContent = "Войти";
-    content.innerHTML = `
-      <label class="field-label">Игровой никнейм</label>
-      <input class="field" id="nickname"
-        maxlength="20" placeholder="Например: Player123">
-      <button class="full-btn" onclick="registerUser()">
-        Создать профиль
-      </button>
-      <p class="muted" style="margin-top:13px">
-        Демо-регистрация без пароля.
-        Профиль хранится только в этом браузере.
-      </p>
-    `;
-  }
-}
-
-function registerUser() {
-  const input = document.getElementById("nickname");
-  const name = input.value.trim();
-
-  if (!/^[a-zA-Z0-9А-Яа-я_-]{3,20}$/.test(name)) {
-    alert("Никнейм должен содержать 3–20 букв, цифр, _ или -.");
-    return;
-  }
-
-  currentUser = name;
-  localStorage.setItem("cl_user", name);
-
-  updateProfile();
-}
-
-function logout() {
-  currentUser = "";
-  localStorage.removeItem("cl_user");
-  updateProfile();
-}
-
-// DETAILS AND COMMENTS
-
-function openDetails(id) {
-  const item = configs.find(x => x.id === id);
-  if (!item) return;
-
-  const ratings = getRatings(id);
-  const comments = getComments(id);
-  const myRating = currentUser ? ratings[currentUser] || 0 : 0;
-
-  document.getElementById("detailsContent").innerHTML = `
-    <span class="tag">${item.category}</span>
-    <h2>${item.icon} ${item.title}</h2>
-    <p style="color:#aaa;line-height:1.7;margin-bottom:18px">
-      ${item.description}
-    </p>
-
-    <div style="background:#25252f;padding:15px;border-radius:7px">
-      <strong style="color:#ffbd42">
-        ★ ${averageRating(id)}
-      </strong>
-      <span class="muted"> (${ratingCount(id)} оценок)</span>
-    </div>
-
-    <h3 style="margin-top:23px">Оценить материал</h3>
-    <div class="stars">
-      ${[1,2,3,4,5].map(n => `
-        <button class="star ${n <= myRating ? "selected" : ""}"
-          onclick="rateItem('${id}',${n})">★</button>
-      `).join("")}
-    </div>
-
-    <p class="muted">
-      ${currentUser
-        ? "Твоя оценка: " + (myRating || "ещё не поставлена")
-        : "Создай профиль, чтобы оценивать материалы."}
-    </p>
-
-    <h3 style="margin-top:25px">Комментарии (${comments.length})</h3>
-
-    <div id="commentsList">
-      ${comments.length ? comments.map(c => `
-        <div class="comment">
-          <strong>${escapeHTML(c.user)}</strong>
-          <p>${escapeHTML(c.text)}</p>
-        </div>
-      `).join("") : `
-        <p class="muted" style="margin:15px 0">
-          Пока нет комментариев. Будь первым!
-        </p>
-      `}
-    </div>
-
-    <h3 style="margin-top:20px">Оставить комментарий</h3>
-    <textarea id="newComment" class="field"
-      rows="3" maxlength="500"
-      placeholder="Напиши своё мнение..."></textarea>
-
-    <button class="full-btn"
-      onclick="addComment('${id}')">
-      Отправить комментарий
-    </button>
-  `;
-
-  document.getElementById("detailsModal").classList.add("open");
-}
-
-function rateItem(id, value) {
-  if (!currentUser) {
-    alert("Сначала создай профиль!");
-    return;
-  }
-
-  const ratings = getRatings(id);
-  ratings[currentUser] = value;
-
-  saveData("cl_ratings_" + id, ratings);
-
-  renderCards();
-  openDetails(id);
-}
-
-function addComment(id) {
-  if (!currentUser) {
-    alert("Сначала создай профиль!");
-    return;
-  }
-
-  const input = document.getElementById("newComment");
-  const text = input.value.trim();
-
-  if (!text) {
-    alert("Напиши комментарий!");
-    return;
-  }
-
-  if (text.length > 500) {
-    alert("Максимум 500 символов.");
-    return;
-  }
-
-  const comments = getComments(id);
-
-  comments.push({
-    user:currentUser,
-    text:text,
-    date:new Date().toISOString()
-  });
-
-  saveData("cl_comments_" + id, comments);
-  openDetails(id);
-}
-
-// SECURITY: ESCAPE USER TEXT
-
-function escapeHTML(value) {
-  return String(value).replace(/[&<>"']/g, char => ({
-    "&":"&amp;",
-    "<":"&lt;",
-    ">":"&gt;",
-    '"':"&quot;",
-    "'":"&#39;"
-  })[char]);
-}
-
-// MODALS
-
-function closeModal(id) {
-  document.getElementById(id).classList.remove("open");
-}
-
-document.querySelectorAll(".modal").forEach(modal => {
-  modal.addEventListener("click", event => {
-    if (event.target === modal) {
-      modal.classList.remove("open");
-    }
-  });
-});
-
-// INITIALIZE
-
-updateProfile();
-renderCards();
-
-</script>
-
-</body>
-</html>
+.product {
+    width: 100%;
+    max-width: 370px;
+    background: #13131c;
+   
