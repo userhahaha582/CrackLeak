@@ -132,7 +132,7 @@ async function manageUserBan(action) {
   const buttons=document.querySelectorAll("#ownerPanel button");
   buttons.forEach(button=>button.disabled=true);
   try {
-    const { data, error } = await supabaseClient.functions.invoke("manage-user-ban", {
+    const { data, error } = await supabaseClient.functions.invoke("dynamic-worker", {
       body: { action, email, duration, reason }
     });
     if (error) throw error;
