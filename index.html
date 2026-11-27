@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CrackLeaks — CS2 Community</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #090b10;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    background: #11151d;
+    padding: 22px 8%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #292e38;
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: bold;
+    color: #ff3939;
+}
+
+nav a {
+    color: #ccc;
+    text-decoration: none;
+    margin-left: 22px;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #ff3939;
+}
+
+.hero {
+    text-align: center;
+    padding: 100px 20px;
+    background:
+    linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.9)),
+    linear-gradient(120deg,#451414,#111827);
+}
+
+.hero h1 {
+    font-size: 55px;
+    margin-bottom: 15px;
+}
+
+.hero span {
+    color: #ff3939;
+}
+
+.hero p {
+    color: #aaa;
+    font-size: 17px;
+}
+
+.button {
+    display: inline-block;
+    margin-top: 28px;
+    padding: 14px 30px;
+    background: #e52e36;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+}
+
+.button:hover {
+    background: #ff4545;
+}
+
+.container {
+    width: 85%;
+    max-width: 1100px;
+    margin: 60px auto;
+}
+
+.section-title {
+    font-size: 30px;
+    margin-bottom: 25px;
+}
+
+.search {
+    width: 100%;
+    padding: 15px;
+    background: #151a24;
+    border: 1px solid #303746;
+    border-radius: 7px;
+    color: white;
+    margin-bottom: 25px;
+    outline: none;
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+    gap: 22px;
+}
+
+.card {
+    background: #151a24;
+    border: 1px solid #292f3b;
+    border-radius: 10px;
+    padding: 25px;
+    transition: .3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: #ff3939;
+}
+
+.card h3 {
+    color: #ff4545;
+    margin-bottom: 13px;
+}
+
+.card p {
+    color: #aaa;
+    line-height: 1.6;
+}
+
+.tag {
+    display: inline-block;
+    background: #29202a;
+    color: #ff6666;
+    padding: 6px 10px;
+    border-radius: 4px;
+    margin: 15px 0;
+    font-size: 12px;
+}
+
+.card a {
+    display: block;
+    text-align: center;
+    background: #292f3b;
+    color: white;
+    padding: 12px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.card a:hover {
+    background: #e52e36;
+}
+
+footer {
+    text-align: center;
+    padding: 30px;
+    color: #666;
+    border-top: 1px solid #292e38;
+    margin-top: 70px;
+}
+
+@media(max-width:600px) {
+    header {
+        flex-direction: column;
+        gap: 15px;
+    }
+    nav a {
+        margin: 0 7px;
+    }
+    .hero h1 {
+        font-size: 38px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">CrackLeaks</div>
+    <nav>
+        <a href="#home">Главная</a>
+        <a href="#catalog">Каталог</a>
+        <a href="#about">О нас</a>
+    </nav>
+</header>
+
+<section class="hero" id="home">
+    <h1>WELCOME TO <span>CRACKLEAKS</span></h1>
+    <p>CS2 Community • Gaming • Configs • Guides</p>
+    <a href="#catalog" class="button">Открыть каталог</a>
+</section>
+
+<section class="container" id="catalog">
+
+    <h2 class="section-title">CS2 Catalog</h2>
+
+    <input
+        type="text"
+        class="search"
+        id="search"
+        placeholder="Поиск по каталогу..."
+        oninput="searchCards()"
+    >
+
+    <div class="cards" id="cards">
+
+        <div class="card">
+            <h3>CS2 Configs</h3>
+            <p>Подборка конфигураций для комфортной игры и настройки управления.</p>
+            <span class="tag">CONFIGS</span>
+            <a href="#">Подробнее</a>
+        </div>
+
+        <div class="card">
+            <h3>CS2 Crosshair</h3>
+            <p>Прицелы профессиональных игроков и пользовательские настройки.</p>
+            <span class="tag">CROSSHAIR</span>
+            <a href="#">Подробнее</a>
+        </div>
+
+        <div class="card">
+            <h3>CS2 FPS Boost</h3>
+            <p>Советы по оптимизации графики и повышению производительности.</p>
+            <span class="tag">OPTIMIZATION</span>
+            <a href="#">Подробнее</a>
+        </div>
+
+        <div class="card">
+            <h3>CS2 Guides</h3>
+            <p>Полезные руководства, игровые механики и тактики.</p>
+            <span class="tag">GUIDES</span>
+            <a href="#">Подробнее</a>
+        </div>
+
+    </div>
+</section>
+
+<section class="container" id="about">
+    <h2 class="section-title">О CrackLeaks</h2>
+    <p style="color:#aaa;line-height:1.8">
+        CrackLeaks — игровое сообщество CS2.
+        Здесь собраны настройки, конфиги, гайды
+        и материалы для игроков.
+    </p>
+</section>
+
+<footer>
+    © 2026 CrackLeaks. Fan community.
+    <br><br>
+    Неофициальный сайт сообщества CS2.
+</footer>
+
+<script>
+function searchCards() {
+    let input = document
+        .getElementById("search")
+        .value.toLowerCase();
+
+    let cards = document.querySelectorAll(".card");
+
+    cards.forEach(card => {
+        let text = card.innerText.toLowerCase();
+
+        card.style.display =
+            text.includes(input) ? "block" : "none";
+    });
+}
+</script>
+
+</body>
+</html>
